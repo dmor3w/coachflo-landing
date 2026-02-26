@@ -55,8 +55,8 @@ export default function Home() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
             {/* Brand */}
             <div className="lg:col-span-2">
-              <div className="text-2xl font-bold text-white mb-3">
-                coach<span className="text-violet-400">flo</span>
+              <div className="text-3xl font-bold text-white mb-3">
+                Coach <span className="text-violet-400">Flo</span>
               </div>
               <p className="text-white/50 text-sm leading-relaxed max-w-xs">
                 Платформа «Всё в одном» для персональных тренеров. Управляй клиентами, программами, финансами в одном месте.
@@ -91,16 +91,26 @@ export default function Home() {
             <div>
               <div className="text-white/70 text-xs font-semibold uppercase tracking-wider mb-4">Компания</div>
               <ul className="space-y-2.5">
-                {['Политика конфиденциальности', 'Публичная оферта', 'Поддержка'].map((item) => (
-                  <li key={item}>
-                    <span className="text-white/40 text-sm cursor-default">{item}</span>
-                  </li>
-                ))}
+                <li>
+                  <a href="/privacy-policy.pdf" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white/70 text-sm transition-colors">
+                    Политика конфиденциальности
+                  </a>
+                </li>
+                <li>
+                  <a href="/user-agreement.pdf" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white/70 text-sm transition-colors">
+                    Пользовательское соглашение
+                  </a>
+                </li>
+                <li>
+                  <a href="https://t.me/coachflo1" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white/70 text-sm transition-colors">
+                    Поддержка
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
           <div className="border-t pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
-            <p className="text-white/30 text-xs">© 2026 CoachFlo · Платформа для онлайн-тренеров</p>
+            <p className="text-white/30 text-xs">© 2026 Coach Flo · Платформа для онлайн-тренеров</p>
             <p className="text-white/20 text-xs">ИП Иванов И.И. · ИНН 000000000000</p>
           </div>
         </div>

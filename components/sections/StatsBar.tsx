@@ -1,12 +1,12 @@
 'use client'
 
-import { TrendingUp, Users, Star, Clock } from 'lucide-react'
+import { TrendingUp, Star, Clock, Smartphone } from 'lucide-react'
 
 const stats = [
-  { icon: Users,     value: '10 000+', label: 'тренеров доверяют нам', color: 'text-violet-600', bg: 'bg-violet-50', border: 'border-violet-100' },
-  { icon: TrendingUp,value: '+40%',    label: 'средний рост дохода',   color: 'text-emerald-600',bg: 'bg-emerald-50',border: 'border-emerald-100' },
-  { icon: Star,      value: '4.9 / 5', label: 'средняя оценка',        color: 'text-amber-600', bg: 'bg-amber-50', border: 'border-amber-100' },
-  { icon: Clock,     value: '−7 ч/нед',label: 'экономия времени',      color: 'text-blue-600',  bg: 'bg-blue-50',  border: 'border-blue-100' },
+  { icon: TrendingUp, value: '+40%',        label: 'средний рост дохода',     color: 'text-emerald-600', bg: 'bg-emerald-50', border: 'border-emerald-100' },
+  { icon: Star,       value: '4.9 / 5',     label: 'средняя оценка',          color: 'text-amber-600',  bg: 'bg-amber-50',  border: 'border-amber-100' },
+  { icon: Clock,      value: '−7 ч/нед',    label: 'экономия времени',        color: 'text-blue-600',   bg: 'bg-blue-50',   border: 'border-blue-100' },
+  { icon: Smartphone, value: 'PWA',            label: 'прямо из браузера на телефон', color: 'text-purple-600', bg: 'bg-purple-50', border: 'border-purple-100' },
 ]
 
 export default function StatsBar() {

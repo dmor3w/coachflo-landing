@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 import { LayoutDashboard, Calendar, Dumbbell, TrendingUp, Apple } from 'lucide-react'
 
 const tabs = [
@@ -168,23 +168,6 @@ const tabs = [
 
 export default function ClientSlider() {
   const [active, setActive] = useState(0)
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  const startTimer = () => {
-    intervalRef.current = setInterval(() => {
-      setActive((prev) => (prev + 1) % tabs.length)
-    }, 5500)
-  }
-
-  const stopTimer = () => {
-    if (intervalRef.current) clearInterval(intervalRef.current)
-  }
-
-  useEffect(() => {
-    startTimer()
-    return stopTimer
-  }, [])
 
   const ActiveTab = tabs[active]
   const Icon = ActiveTab.icon
@@ -205,7 +188,7 @@ export default function ClientSlider() {
             <span className="text-accent">клиент остаётся</span>
           </h2>
           <p className="text-t-secondary text-lg max-w-2xl mx-auto">
-            Приложение для клиента встроено в CoachFlo. Он видит прогресс, программу и питание —{' '}
+            Приложение для клиента встроено в Coach Flo. Он видит прогресс, программу и питание —{' '}
             <span className="text-t-primary font-semibold">и не уходит к другому тренеру.</span>{' '}
             Клиенты, которые видят прогресс, остаются в{' '}
             <span className="text-accent font-bold">2.3× дольше.</span>
@@ -214,9 +197,6 @@ export default function ClientSlider() {
 
         {/* Main slider */}
         <div
-          ref={containerRef}
-          onMouseEnter={stopTimer}
-          onMouseLeave={startTimer}
           className="bg-bg-3 border border-border rounded-2xl overflow-hidden"
         >
           {/* Content area */}
@@ -237,7 +217,7 @@ export default function ClientSlider() {
                 {/* Phone header */}
                 <div className="bg-bg-2 px-4 py-3 flex items-center gap-2 border-b border-border">
                   <div className="w-2 h-2 rounded-full bg-green-400" />
-                  <span className="text-xs text-t-secondary">CoachFlo · {ActiveTab.label}</span>
+                  <span className="text-xs text-t-secondary">Coach Flo · {ActiveTab.label}</span>
                 </div>
                 {ActiveTab.mockContent}
               </div>
@@ -252,7 +232,7 @@ export default function ClientSlider() {
                 return (
                   <button
                     key={tab.id}
-                    onClick={() => { setActive(i); stopTimer(); startTimer() }}
+                    onClick={() => setActive(i)}
                     className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
                       i === active
                         ? 'bg-accent text-white'
@@ -264,17 +244,6 @@ export default function ClientSlider() {
                   </button>
                 )
               })}
-            </div>
-
-            {/* Progress bar */}
-            <div className="mt-3 h-0.5 bg-border rounded-full overflow-hidden">
-              <div
-                className="h-full bg-accent rounded-full transition-none"
-                style={{
-                  width: `${((active + 1) / tabs.length) * 100}%`,
-                  transition: 'width 5.5s linear',
-                }}
-              />
             </div>
           </div>
         </div>

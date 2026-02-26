@@ -56,7 +56,7 @@ function getResult(score: number) {
     return {
       emoji: '✅',
       title: 'У тебя хорошая система',
-      text: 'Но даже при хорошей организации CoachFlo помогает масштабировать бизнес и брать больше клиентов без увеличения нагрузки.',
+      text: 'Но даже при хорошей организации Coach Flo помогает масштабировать бизнес и брать больше клиентов без увеличения нагрузки.',
       loss: 'до 5 000 ₽',
     }
   }
@@ -64,14 +64,14 @@ function getResult(score: number) {
     return {
       emoji: '⚠️',
       title: 'Есть точки потерь',
-      text: 'Ты теряешь деньги на пропусках, хаосе и административной рутине. CoachFlo закроет эти дыры за первый же месяц.',
+      text: 'Ты теряешь деньги на пропусках, хаосе и административной рутине. Coach Flo закроет эти дыры за первый же месяц.',
       loss: '15 000–30 000 ₽',
     }
   }
   return {
     emoji: '🚨',
     title: 'Ты теряешь значительную часть дохода',
-    text: 'Хаос в управлении клиентами напрямую бьёт по кошельку. С CoachFlo многие тренеры увеличивают доход на 30–50% уже в первый месяц.',
+    text: 'Хаос в управлении клиентами напрямую бьёт по кошельку. С Coach Flo многие тренеры увеличивают доход на 30–50% уже в первый месяц.',
     loss: 'от 40 000 ₽',
   }
 }
@@ -83,10 +83,6 @@ interface QuizProps {
 export default function Quiz({ onTrial }: QuizProps) {
   const [step, setStep] = useState(0) // 0 = intro, 1..5 = questions, 6 = result
   const [answers, setAnswers] = useState<number[]>([])
-  const [contact, setContact] = useState('')
-  const [contactSent, setContactSent] = useState(false)
-  const [sending, setSending] = useState(false)
-  const [quizError, setQuizError] = useState('')
 
   const totalScore = answers.reduce((a, b) => a + b, 0)
   const result = getResult(totalScore)
@@ -98,32 +94,6 @@ export default function Quiz({ onTrial }: QuizProps) {
       setStep(questions.length + 1)
     } else {
       setStep(step + 1)
-    }
-  }
-
-  const handleContactSend = async () => {
-    if (!contact.trim()) return
-    setSending(true)
-    setQuizError('')
-    try {
-      const res = await fetch('/api/lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          mode: 'quiz',
-          contact: contact.trim(),
-          comment: `Quiz score: ${totalScore} / ${questions.length * 5} — ${result.title}`,
-        }),
-      })
-      if (!res.ok) {
-        const json = await res.json().catch(() => null)
-        throw new Error(json?.error || 'Ошибка отправки')
-      }
-      setContactSent(true)
-    } catch (err: unknown) {
-      setQuizError(err instanceof Error ? err.message : 'Ошибка отправки. Попробуйте позже.')
-    } finally {
-      setSending(false)
     }
   }
 
@@ -212,42 +182,24 @@ export default function Quiz({ onTrial }: QuizProps) {
                 </div>
               </div>
 
-              {/* Lead capture */}
-              {!contactSent ? (
-                <div className="border-t border-border pt-8">
-                  <p className="text-center text-sm text-t-secondary mb-4">
-                    Получи персональные рекомендации и попробуй CoachFlo бесплатно
-                  </p>
-                  {quizError && (
-                    <p className="text-red-500 text-sm text-center mb-2">{quizError}</p>
-                  )}
-                  <div className="flex gap-3">
-                    <input
-                      value={contact}
-                      onChange={(e) => setContact(e.target.value)}
-                      placeholder="Email или Telegram (@username)"
-                      className="flex-1 bg-bg-2 border border-border rounded-xl px-4 py-3 text-sm text-t-primary placeholder:text-t-secondary focus:outline-none focus:border-accent transition-colors"
-                    />
-                    <button
-                      onClick={handleContactSend}
-                      disabled={sending}
-                      className="bg-accent hover:bg-accent-dark disabled:opacity-60 text-white font-semibold rounded-xl px-5 py-3 transition-all text-sm whitespace-nowrap"
-                    >
-                      {sending ? 'Отправка...' : 'Отправить'}
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <div className="border-t border-border pt-8 text-center">
-                  <p className="text-t-secondary text-sm mb-4">Отлично, мы свяжемся с тобой!</p>
-                  <button
-                    onClick={() => onTrial()}
-                    className="bg-accent hover:bg-accent-dark text-white font-semibold rounded-xl px-6 py-3 transition-all text-sm"
-                  >
-                    Попробовать бесплатно 14 дней
-                  </button>
-                </div>
-              )}
+              {/* Telegram CTA */}
+              <div className="border-t border-border pt-8 text-center">
+                <p className="text-t-secondary text-sm mb-2">
+                  Хочешь узнать, как другие тренеры решают эти проблемы?
+                </p>
+                <p className="text-t-primary font-semibold text-sm mb-5">
+                  Присоединяйся к нашему каналу — делимся кейсами, инструментами и лайфхаками
+                </p>
+                <a
+                  href="https://t.me/coachflo1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-white font-semibold rounded-xl px-6 py-3 transition-all text-sm"
+                >
+                  Перейти в Telegram-канал
+                  <ChevronRight size={16} />
+                </a>
+              </div>
             </div>
           )}
         </div>

@@ -71,7 +71,7 @@ export default function AudienceBlocks() {
             <span className="text-accent text-sm font-medium">Ведущее решение для всех участников</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-t-primary">
-            CoachFlo — для <span className="text-accent">каждого</span> в индустрии фитнеса
+            Coach Flo — для <span className="text-accent">каждого</span> в индустрии фитнеса
           </h2>
         </div>
 

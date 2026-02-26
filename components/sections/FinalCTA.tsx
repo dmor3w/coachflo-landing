@@ -6,7 +6,7 @@ const testimonials = [
   {
     name: 'Алексей М.',
     city: 'Москва',
-    text: 'За первый месяц вернул двух клиентов которых уже считал потерянными. CoachFlo напоминает сам — я просто работаю.',
+    text: 'За первый месяц вернул двух клиентов которых уже считал потерянными. Coach Flo напоминает сам — я просто работаю.',
     gain: '+38 000 ₽/мес',
     initials: 'АМ',
     color: 'bg-violet-100 text-violet-700',
@@ -99,7 +99,7 @@ export default function FinalCTA({ onTrial }: FinalCTAProps) {
 
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-[1.1] text-white">
             Раскрой потенциал с{' '}
-            <span className="text-violet-400">CoachFlo</span>
+            <span className="text-violet-400">Coach Flo</span>
           </h2>
 
           <p className="text-white/60 text-lg max-w-2xl mx-auto mb-6">

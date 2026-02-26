@@ -2,14 +2,14 @@
 
 const cards = [
   { type: 'stat', text: 'Тренеры теряют в среднем 3–5 клиентов в месяц из-за пропусков и хаоса', accent: true },
-  { type: 'review', name: 'Алексей М.', city: 'Москва', rating: 5, gain: '+40%', text: 'Раньше вёл клиентов в таблицах. Теперь всё в CoachFlo — клиенты стали реже пропускать, доход вырос на 40%.', initials: 'АМ', color: 'bg-violet-100 text-violet-700' },
+  { type: 'review', name: 'Алексей М.', city: 'Москва', rating: 5, gain: '+40%', text: 'Раньше вёл клиентов в таблицах. Теперь всё в Coach Flo — клиенты стали реже пропускать, доход вырос на 40%.', initials: 'АМ', color: 'bg-violet-100 text-violet-700' },
   { type: 'stat', text: 'Автоматические напоминания сокращают пропуски занятий на 60%', accent: false },
   { type: 'review', name: 'Марина К.', city: 'Санкт-Петербург', rating: 5, gain: '+22%', text: 'Наконец вижу кто платит, кто нет. Перестала забывать напоминать — платформа делает это сама.', initials: 'МК', color: 'bg-pink-100 text-pink-700' },
-  { type: 'stat', text: 'Тренер с 20 клиентами тратит 8+ часов в неделю на административку. CoachFlo сокращает это до 1 часа', accent: true },
+  { type: 'stat', text: 'Тренер с 20 клиентами тратит 8+ часов в неделю на административку. Coach Flo сокращает это до 1 часа', accent: true },
   { type: 'review', name: 'Дмитрий С.', city: 'Екатеринбург', rating: 5, gain: '+78%', text: 'Клиенты видят свой прогресс в приложении и сами хотят продлеваться. Продления выросли с 40% до 78%.', initials: 'ДС', color: 'bg-blue-100 text-blue-700' },
   { type: 'stat', text: 'Клиенты, которые видят свой прогресс, остаются в 2.3 раза дольше', accent: false },
   { type: 'review', name: 'Ольга Р.', city: 'Новосибирск', rating: 5, gain: '+35%', text: 'Наконец-то одно приложение для всего: программы, питание, оплаты. Клиентам тоже удобно — перестали писать в WhatsApp.', initials: 'ОР', color: 'bg-emerald-100 text-emerald-700' },
-  { type: 'stat', text: 'Средний тренер не замечает 15–20% неоплаченных занятий. CoachFlo устраняет это полностью', accent: true },
+  { type: 'stat', text: 'Средний тренер не замечает 15–20% неоплаченных занятий. Coach Flo устраняет это полностью', accent: true },
   { type: 'review', name: 'Игорь В.', city: 'Казань', rating: 5, gain: '+51%', text: 'Попробовал 14 дней и сразу купил годовой план. Окупилось за первый же месяц — одним клиентом меньше потерял.', initials: 'ИВ', color: 'bg-amber-100 text-amber-700' },
 ]
 
@@ -32,7 +32,7 @@ function Card({ card }: { card: Card }) {
           {card.text}
         </p>
         <div className={`mt-auto text-xs font-semibold ${card.accent ? 'text-white/50' : 'text-accent'}`}>
-          Статистика CoachFlo
+          Статистика Coach Flo
         </div>
       </div>
     )
@@ -84,7 +84,7 @@ export default function InfiniteCarousel() {
           <span className="text-accent">на 30–50% больше</span>
         </h2>
         <p className="text-t-secondary mt-3 text-base max-w-xl mx-auto">
-          Реальные результаты тренеров которые уже работают с CoachFlo.{' '}
+          Реальные результаты тренеров которые уже работают с Coach Flo.{' '}
           <span className="text-t-primary font-semibold">Без воды — только цифры.</span>
         </p>
       </div>

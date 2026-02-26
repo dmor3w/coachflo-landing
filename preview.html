@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CoachFlo — Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#fff;color:#0F172A;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#0c0a14}::-webkit-scrollbar-thumb{background:#4c1d95;border-radius:3px}
+
+/* ---- ANIMATIONS ---- */
+@keyframes gradient-shift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes orb-float{0%,100%{transform:translateY(0) scale(1)}33%{transform:translateY(-28px) scale(1.04)}66%{transform:translateY(14px) scale(0.97)}}
+@keyframes orb-float-r{0%,100%{transform:translateY(0) scale(1)}33%{transform:translateY(22px) scale(0.96)}66%{transform:translateY(-18px) scale(1.05)}}
+@keyframes glow-pulse{0%,100%{box-shadow:0 0 30px rgba(139,92,246,.35),0 4px 20px rgba(139,92,246,.25)}50%{box-shadow:0 0 50px rgba(139,92,246,.5),0 8px 32px rgba(139,92,246,.4)}}
+@keyframes fade-up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
+
+.animate-gradient-text{
+  background:linear-gradient(135deg,#8B5CF6,#A78BFA,#6D28D9,#8B5CF6);
+  background-size:300% 300%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:gradient-shift 5s ease infinite
+}
+.logo-gradient{
+  background:linear-gradient(135deg,#7C3AED 0%,#A78BFA 50%,#7C3AED 100%);
+  background-size:200% 200%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:gradient-shift 4s ease infinite
+}
+.orb-float{animation:orb-float 9s ease-in-out infinite}
+.orb-float-r{animation:orb-float-r 11s ease-in-out infinite}
+.btn-glow{animation:glow-pulse 2.5s ease-in-out infinite}
+.fade-up{animation:fade-up .7s ease both}
+.pulse-dot{animation:pulse-dot 1.8s ease-in-out infinite}
+
+/* ---- GRADIENT MESHES ---- */
+.mesh-dark{
+  background-color:#08070f;
+  background-image:
+    radial-gradient(at 15% 15%,hsla(270,65%,28%,.85) 0,transparent 55%),
+    radial-gradient(at 85% 10%,hsla(240,55%,22%,.65) 0,transparent 55%),
+    radial-gradient(at 5% 85%,hsla(275,60%,25%,.75) 0,transparent 55%),
+    radial-gradient(at 88% 85%,hsla(250,50%,20%,.55) 0,transparent 55%)
+}
+.mesh-purple{
+  background-color:#fff;
+  background-image:
+    radial-gradient(at 20% 20%,hsla(265,80%,68%,.14) 0,transparent 55%),
+    radial-gradient(at 80% 5%,hsla(220,75%,60%,.09) 0,transparent 55%),
+    radial-gradient(at 5% 70%,hsla(280,80%,62%,.1) 0,transparent 55%)
+}
+.mesh-slate{
+  background-color:#0c0f1a;
+  background-image:
+    radial-gradient(at 0% 0%,hsla(265,60%,22%,.6) 0,transparent 50%),
+    radial-gradient(at 100% 0%,hsla(230,55%,20%,.5) 0,transparent 50%),
+    radial-gradient(at 0% 100%,hsla(280,55%,20%,.5) 0,transparent 50%),
+    radial-gradient(at 100% 100%,hsla(245,50%,18%,.4) 0,transparent 50%)
+}
+.card-popular{
+  background:
+    radial-gradient(at 0% 0%,rgba(109,40,217,.5) 0,transparent 60%),
+    radial-gradient(at 100% 100%,rgba(88,28,135,.4) 0,transparent 60%),
+    linear-gradient(145deg,#140825,#1e0d38,#0f0720);
+  border:1px solid rgba(139,92,246,.4)
+}
+.glass-dark{
+  background:rgba(255,255,255,.04);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.09)
+}
+
+/* ---- UTILS ---- */
+.tag-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 14px;border-radius:999px;font-size:13px;font-weight:600;
+  background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(109,40,217,.08));
+  border:1px solid rgba(139,92,246,.3);color:#8B5CF6
+}
+.tag-badge-dark{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 14px;border-radius:999px;font-size:13px;font-weight:600;
+  background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.35);color:#A78BFA
+}
+.section-pad{padding:80px 0}
+@media(max-width:768px){.section-pad{padding:48px 0}}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:900px){.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}}
+.card-white{background:#fff;border:1px solid #E2E8F0;border-radius:20px;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.04);transition:box-shadow .25s,border-color .25s,transform .25s}
+.card-white:hover{box-shadow:0 4px 24px rgba(139,92,246,.1),0 12px 40px rgba(0,0,0,.08);border-color:rgba(139,92,246,.25);transform:translateY(-2px)}
+.glow-btn{
+  background:linear-gradient(135deg,#8B5CF6,#7C3AED);color:#fff;
+  border:none;border-radius:14px;padding:14px 32px;font-size:15px;font-weight:800;
+  cursor:pointer;display:inline-flex;align-items:center;gap:8px;
+  box-shadow:0 0 0 1px rgba(139,92,246,.5),0 0 30px rgba(139,92,246,.35),0 4px 20px rgba(139,92,246,.25);
+  transition:box-shadow .25s,transform .2s;animation:glow-pulse 2.5s ease-in-out infinite
+}
+.glow-btn:hover{transform:translateY(-1px);box-shadow:0 0 0 1px rgba(139,92,246,.7),0 0 50px rgba(139,92,246,.5),0 8px 32px rgba(139,92,246,.35)}
+.check-icon{width:14px;height:14px;flex-shrink:0;margin-top:2px}
+.grid-line{height:1px;background:linear-gradient(90deg,transparent,rgba(139,92,246,.3),transparent)}
+
+/* ---- HEADER ---- */
+header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(226,232,240,.6);
+  box-shadow:0 1px 16px rgba(0,0,0,.05)
+}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-size:26px;font-weight:900;letter-spacing:-.04em;text-decoration:none;cursor:pointer}
+nav a{color:#64748B;text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+nav a:hover{color:#0F172A}
+.nav-links{display:flex;gap:28px;align-items:center}
+.header-ctas{display:flex;align-items:center;gap:10px}
+.btn-outline{
+  border:1px solid #E2E8F0;border-radius:12px;padding:8px 16px;font-size:13px;font-weight:600;
+  color:#64748B;background:#fff;cursor:pointer;display:flex;align-items:center;gap:6px;
+  transition:border-color .2s,color .2s;text-decoration:none
+}
+.btn-outline:hover{border-color:rgba(139,92,246,.4);color:#8B5CF6}
+.btn-primary{
+  background:linear-gradient(135deg,#8B5CF6,#7C3AED);color:#fff;
+  border:none;border-radius:12px;padding:9px 20px;font-size:13px;font-weight:700;
+  cursor:pointer;transition:transform .2s;text-decoration:none;
+  box-shadow:0 0 20px rgba(139,92,246,.3)
+}
+.btn-primary:hover{transform:translateY(-1px)}
+
+/* ---- HERO ---- */
+.hero{
+  position:relative;min-height:100vh;display:flex;align-items:center;
+  overflow:hidden;padding-top:68px
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,#0a0014 0%,#1a0535 40%,#0d0520 100%)
+}
+.hero-img{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1400&q=80') center/cover;
+  opacity:.35
+}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,0,20,.85) 0%,rgba(5,0,20,.6) 50%,rgba(5,0,20,.3) 100%)}
+.hero-content{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding:64px 0}
+@media(max-width:900px){.hero-content{grid-template-columns:1fr}.hero-mockup{display:none!important}}
+.hero-orb1{position:absolute;top:20%;left:10%;width:500px;height:500px;background:rgba(109,40,217,.25);border-radius:50%;filter:blur(100px);pointer-events:none}
+.hero-orb2{position:absolute;bottom:10%;right:5%;width:400px;height:400px;background:rgba(59,130,246,.15);border-radius:50%;filter:blur(90px);pointer-events:none}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  border-radius:999px;padding:6px 16px;margin-bottom:28px;backdrop-filter:blur(10px)
+}
+.hero-badge span{color:rgba(255,255,255,.85);font-size:13.5px;font-weight:600;letter-spacing:.02em}
+.hero h1{font-size:clamp(42px,5vw,72px);font-weight:900;line-height:1.0;letter-spacing:-.04em;color:#fff;margin-bottom:24px}
+.hero p{color:rgba(255,255,255,.65);font-size:17px;line-height:1.65;margin-bottom:32px;max-width:480px}
+.hero-cta-row{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.hero-input{
+  flex:1;min-width:180px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.2);border-radius:12px;
+  padding:14px 18px;color:#fff;font-size:14px;outline:none;transition:border-color .2s
+}
+.hero-input::placeholder{color:rgba(255,255,255,.4)}
+.hero-input:focus{border-color:#8B5CF6}
+.hero-trust{display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:rgba(255,255,255,.5)}
+.hero-trust .ok{color:#34D399;font-weight:600}
+.hero-stats{display:flex;gap:24px;margin-top:32px;padding-top:24px;border-top:1px solid rgba(255,255,255,.12)}
+.hero-stat-val{font-size:22px;font-weight:900;color:#fff}
+.hero-stat-lbl{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px}
+.hero-sep{width:1px;background:rgba(255,255,255,.15)}
+
+/* mock app */
+.mockup{border-radius:16px;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);box-shadow:0 25px 80px rgba(0,0,0,.4);overflow:hidden;position:relative}
+.mockup-bar{background:#f8fafc;border-bottom:1px solid #e2e8f0;padding:10px 14px;display:flex;align-items:center;gap:6px}
+.dot{width:11px;height:11px;border-radius:50%}
+.mockup-url{margin-left:8px;font-size:11px;color:#94A3B8}
+.mockup-body{padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.m-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px}
+.m-card.full{grid-column:1/-1}
+.m-label{font-size:11px;color:#94A3B8;margin-bottom:10px}
+.m-user{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f1f5f9}
+.m-user:last-child{border-bottom:none}
+.m-avatar{width:30px;height:30px;border-radius:50%;background:rgba(139,92,246,.2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#7C3AED}
+.m-name{font-size:13px;color:#1e293b;font-weight:500}
+.m-sub{font-size:11px;color:#94A3B8}
+.m-gain{font-size:11px;color:#10B981;font-weight:600;margin-left:auto}
+.m-big{font-size:26px;font-weight:900;color:#1e293b;margin:4px 0}
+.m-trend{font-size:11px;color:#10B981;font-weight:600}
+.mockup-badge1{
+  position:absolute;bottom:-14px;left:-14px;
+  background:#8B5CF6;border-radius:14px;padding:10px 14px;
+  box-shadow:0 8px 24px rgba(139,92,246,.4)
+}
+.mockup-badge1 .bv{font-size:18px;font-weight:900;color:#fff}
+.mockup-badge1 .bl{font-size:11px;color:rgba(255,255,255,.75)}
+.mockup-badge2{
+  position:absolute;top:-12px;right:-12px;
+  background:#fff;border:1px solid #f1f5f9;border-radius:14px;padding:8px 12px;
+  box-shadow:0 8px 24px rgba(0,0,0,.1);display:flex;align-items:center;gap:8px
+}
+
+/* ---- STATSBAR ---- */
+.statsbar{position:relative;overflow:hidden}
+.statsbar-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border:1px solid rgba(255,255,255,.07);border-radius:20px;overflow:hidden;
+  background:rgba(255,255,255,.06)
+}
+@media(max-width:700px){.statsbar-grid{grid-template-columns:repeat(2,1fr)}}
+.stat-cell{
+  position:relative;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;padding:56px 24px;
+  background:#08070f;transition:background .3s;cursor:default
+}
+.stat-cell:not(:last-child)::after{
+  content:'';position:absolute;right:0;top:25%;bottom:25%;
+  width:1px;background:rgba(255,255,255,.07)
+}
+.stat-cell:hover{background:rgba(255,255,255,.025)}
+.stat-val{font-size:clamp(42px,4vw,56px);font-weight:900;letter-spacing:-.04em;line-height:1}
+.stat-suf{font-size:22px;font-weight:700;color:rgba(255,255,255,.3);margin-left:6px}
+.stat-lbl{color:rgba(255,255,255,.45);font-size:13px;font-weight:500;margin-top:10px;line-height:1.4}
+.stat-sub{font-size:11px;font-weight:600;margin-top:6px;opacity:.65}
+.grid-lines-overlay{
+  position:absolute;inset:0;pointer-events:none;opacity:.035;
+  background-image:linear-gradient(rgba(139,92,246,1) 1px,transparent 1px),linear-gradient(90deg,rgba(139,92,246,1) 1px,transparent 1px);
+  background-size:60px 60px
+}
+.accent-line-top{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(139,92,246,.5),transparent)}
+.accent-line-bot{position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(139,92,246,.3),transparent)}
+
+/* ---- AUDIENCE ---- */
+.audience-card-dark{
+  position:relative;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;
+  box-shadow:0 25px 60px rgba(88,28,135,.4)
+}
+.aud-top-line{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,rgba(139,92,246,0),#A78BFA,rgba(139,92,246,0))}
+.aud-badge{
+  position:absolute;top:0;left:50%;transform:translateX(-50%);
+  background:linear-gradient(135deg,#7C3AED,#8B5CF6);color:#fff;
+  font-size:11px;font-weight:700;padding:6px 16px;border-radius:0 0 12px 12px;
+  box-shadow:0 4px 16px rgba(109,40,217,.4);letter-spacing:.06em;white-space:nowrap
+}
+.aud-inner{padding:28px 28px 28px;padding-top:36px;flex:1;display:flex;flex-direction:column}
+.aud-icon{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.aud-stat-val{font-size:40px;font-weight:900;letter-spacing:-.04em;color:#fff}
+.aud-stat-lbl{font-size:11px;color:rgba(255,255,255,.4);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-left:8px}
+.aud-title{font-size:17px;font-weight:700;color:#fff;line-height:1.35;margin:12px 0 20px}
+.check-li{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px}
+.check-li span{font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.58)}
+
+/* light audience card */
+.aud-light{border-radius:20px;overflow:hidden;display:flex;flex-direction:column;background:#fff;border:1px solid #E2E8F0;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.04);transition:box-shadow .25s,transform .25s}
+.aud-light:hover{box-shadow:0 8px 32px rgba(139,92,246,.1),0 2px 8px rgba(0,0,0,.06);transform:translateY(-2px)}
+.aud-header-v{padding:24px;padding-bottom:20px;background:linear-gradient(135deg,#f5f3ff,#fff)}
+.aud-header-e{padding:24px;padding-bottom:20px;background:linear-gradient(135deg,#ecfdf5,#fff)}
+.aud-header-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+.aud-tag{font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:999px}
+.aud-stat-row{display:flex;align-items:baseline;gap:6px;margin-bottom:10px}
+.aud-stat-v-dark{font-size:36px;font-weight:900;color:#7C3AED;letter-spacing:-.03em}
+.aud-stat-e-dark{font-size:36px;font-weight:900;color:#059669;letter-spacing:-.03em}
+.aud-title-light{font-size:15.5px;font-weight:700;color:#0F172A;line-height:1.35}
+.aud-points{padding:20px 24px;flex:1}
+.check-li-light{display:flex;align-items:flex-start;gap:10px;margin-bottom:11px}
+.check-li-light span{font-size:13px;color:#64748B;line-height:1.5}
+
+/* ---- FEATURES ---- */
+.feat-card{
+  position:relative;background:#fff;border:1px solid #E2E8F0;border-radius:18px;
+  padding:20px;overflow:hidden;cursor:default;
+  transition:box-shadow .25s,border-color .25s,transform .25s
+}
+.feat-card:hover{box-shadow:0 8px 28px rgba(139,92,246,.1);border-color:rgba(139,92,246,.25);transform:translateY(-3px)}
+.feat-watermark{position:absolute;top:10px;right:14px;font-size:52px;font-weight:900;color:#f8fafc;line-height:1;pointer-events:none;transition:color .25s}
+.feat-card:hover .feat-watermark{color:#f1f5f9}
+.feat-icon{
+  width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  margin-bottom:14px;transition:transform .25s,box-shadow .25s;position:relative
+}
+.feat-card:hover .feat-icon{transform:scale(1.1)}
+.feat-title{font-size:14px;font-weight:700;color:#0F172A;margin-bottom:4px}
+.feat-desc{font-size:12px;color:#64748B;line-height:1.45}
+.feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:900px){.feat-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* ---- PRICING ---- */
+.pricing-toggle{
+  display:inline-flex;background:#fff;border:1px solid #E2E8F0;
+  border-radius:16px;padding:6px;gap:4px;box-shadow:0 1px 4px rgba(0,0,0,.06)
+}
+.pt-btn{padding:8px 18px;border-radius:12px;font-size:13.5px;font-weight:600;border:none;cursor:pointer;transition:all .2s;background:transparent;color:#64748B}
+.pt-btn.active{background:#8B5CF6;color:#fff;box-shadow:0 2px 8px rgba(139,92,246,.3)}
+.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:end}
+@media(max-width:900px){.pricing-grid{grid-template-columns:repeat(2,1fr)}}
+.price-card{background:#fff;border:1px solid #E2E8F0;border-radius:20px;padding:24px;transition:all .25s}
+.price-card:hover{border-color:rgba(139,92,246,.25);box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.price-card-pop{
+  border-radius:20px;overflow:hidden;
+  margin-top:-20px;
+  box-shadow:0 25px 60px rgba(88,28,135,.5);
+  position:relative
+}
+.price-name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
+.price-clients{font-size:11px;color:rgba(255,255,255,.4)}
+.price-clients-light{font-size:11px;color:#94A3B8}
+.price-val{font-size:36px;font-weight:900;letter-spacing:-.03em;line-height:1}
+.price-period{font-size:13px;margin-left:4px;opacity:.5}
+.price-old{font-size:13px;text-decoration:line-through;opacity:.35;margin-right:6px}
+.price-disc{font-size:11px;font-weight:700;padding:2px 7px;border-radius:8px}
+.price-disc-dark{background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.2);color:#34D399}
+.price-disc-light{background:#ecfdf5;border:1px solid #d1fae5;color:#059669}
+.price-feat-li{display:flex;align-items:flex-start;gap:8px;margin-bottom:10px;font-size:12px}
+.price-btn-pop{
+  width:100%;border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:700;
+  color:#fff;cursor:pointer;
+  background:linear-gradient(135deg,#8B5CF6,#7C3AED);
+  box-shadow:0 0 0 1px rgba(139,92,246,.5),0 0 30px rgba(139,92,246,.35);
+  transition:all .2s;margin-top:4px
+}
+.price-btn-pop:hover{box-shadow:0 0 0 1px rgba(139,92,246,.7),0 0 50px rgba(139,92,246,.5)}
+.price-btn-norm{
+  width:100%;border:1px solid #E2E8F0;border-radius:12px;padding:12px;font-size:13px;
+  font-weight:600;color:#64748B;cursor:pointer;background:#F8FAFC;transition:all .2s
+}
+.price-btn-norm:hover{background:#f1f5f9;color:#0F172A}
+.slider-box{
+  border-radius:20px;padding:28px;margin-bottom:32px;border:1px solid rgba(139,92,246,.2);
+  background:linear-gradient(135deg,rgba(139,92,246,.06),rgba(109,40,217,.04));
+  position:relative;overflow:hidden
+}
+.slider-orb{position:absolute;right:-20px;top:-20px;width:120px;height:120px;background:rgba(139,92,246,.08);border-radius:50%;filter:blur(30px)}
+.slider-val{font-size:48px;font-weight:900;color:#8B5CF6;letter-spacing:-.04em;line-height:1}
+input[type=range]{-webkit-appearance:none;width:100%;height:4px;background:#E2E8F0;border-radius:2px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#8B5CF6;cursor:pointer;border:2px solid #A78BFA;box-shadow:0 0 10px rgba(139,92,246,.4)}
+
+/* ---- FINAL CTA ---- */
+.cta-section{position:relative;overflow:hidden}
+.cta-testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:64px}
+@media(max-width:700px){.cta-testimonials{grid-template-columns:1fr}}
+.test-card{border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:14px;transition:border-color .3s}
+.test-stars{display:flex;gap:3px}
+.test-star{color:#FBBF24;font-size:13px}
+.test-text{font-size:13.5px;color:rgba(255,255,255,.62);line-height:1.65;font-style:italic;flex:1}
+.test-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+.test-avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;border:1px solid rgba(255,255,255,.1)}
+.test-name{font-size:13.5px;font-weight:700;color:#fff}
+.test-city{font-size:11px;color:rgba(255,255,255,.3)}
+.cta-title{font-size:clamp(40px,6vw,80px);font-weight:900;letter-spacing:-.04em;line-height:1.0;color:#fff;text-align:center;margin-bottom:20px}
+.cta-sub{font-size:17px;color:rgba(255,255,255,.48);line-height:1.7;text-align:center;max-width:520px;margin:0 auto 40px}
+.cta-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,#8B5CF6,#7C3AED);color:#fff;
+  border:none;border-radius:16px;padding:18px 40px;font-size:16px;font-weight:900;
+  cursor:pointer;
+  box-shadow:0 0 0 1px rgba(139,92,246,.6),0 0 40px rgba(139,92,246,.5),0 8px 32px rgba(139,92,246,.35);
+  transition:all .2s
+}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(139,92,246,.8),0 0 60px rgba(139,92,246,.6),0 12px 40px rgba(139,92,246,.4)}
+.cta-guarantees{display:flex;flex-wrap:wrap;justify-content:center;gap:32px;margin-top:24px}
+.cta-g{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.4);font-size:13.5px;font-weight:500}
+.cta-g-icon{color:#A78BFA;font-size:14px}
+
+/* ---- FOOTER ---- */
+footer{padding:48px 0}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:32px}
+@media(max-width:700px){.footer-grid{grid-template-columns:1fr;gap:28px}}
+.footer-logo{font-size:24px;font-weight:900;letter-spacing:-.04em;margin-bottom:12px}
+.footer-desc{color:rgba(255,255,255,.45);font-size:13.5px;line-height:1.65;max-width:260px;margin-bottom:16px}
+.footer-pwa{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.35);font-size:12px}
+.footer-pwa-dot{width:7px;height:7px;background:#34D399;border-radius:50%}
+.footer-col-title{color:rgba(255,255,255,.6);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px}
+.footer-link{display:block;color:rgba(255,255,255,.35);font-size:13px;text-decoration:none;margin-bottom:10px;transition:color .2s}
+.footer-link:hover{color:rgba(255,255,255,.75)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:24px;display:flex;align-items:center;justify-content:space-between}
+.footer-copy{color:rgba(255,255,255,.25);font-size:12px}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <a class="logo" href="#">
+        <span style="color:#1e293b">coach</span><span class="logo-gradient">flo</span>
+      </a>
+      <nav class="nav-links" style="display:flex">
+        <a href="#">Модули тренера</a>
+        <a href="#">Блок клиента</a>
+        <a href="#">Тарифы</a>
+        <a href="#">Отзывы</a>
+      </nav>
+      <div class="header-ctas">
+        <a class="btn-outline" href="#">Войти</a>
+        <a class="btn-primary" href="#">Попробовать бесплатно</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-img"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-orb1 orb-float"></div>
+  <div class="hero-orb2 orb-float-r"></div>
+  <div class="container" style="position:relative;z-index:2;width:100%">
+    <div class="hero-content">
+      <div class="fade-up">
+        <div class="hero-badge">
+          <span class="pulse-dot" style="width:8px;height:8px;background:#A78BFA;border-radius:50%;flex-shrink:0"></span>
+          <span>Платформа №1 для онлайн-тренеров</span>
+        </div>
+        <h1>
+          Больше клиентов.<br>
+          <span class="animate-gradient-text">Меньше рутины.</span><br>
+          <span style="color:rgba(255,255,255,.82)">Больше дохода.</span>
+        </h1>
+        <p>CoachFlo — платформа для тренеров, которые хотят <strong style="color:#fff">масштабировать бизнес</strong>, не утопая в таблицах и переписках. <span style="color:#A78BFA;font-weight:600">Первые результаты — уже в первый месяц.</span></p>
+        <div class="hero-cta-row">
+          <input class="hero-input" type="email" placeholder="Введите ваш email">
+          <button class="glow-btn">Начать бесплатно <span>→</span></button>
+        </div>
+        <div class="hero-trust">
+          <span class="ok">✓ Карта не нужна</span>
+          <span class="ok">✓ 14 дней бесплатно</span>
+          <span>✓ Отмена в любой момент</span>
+        </div>
+        <div class="hero-stats">
+          <div><div class="hero-stat-val">PWA</div><div class="hero-stat-lbl">установи как приложение</div></div>
+          <div class="hero-sep"></div>
+          <div><div class="hero-stat-val">4.9 ★</div><div class="hero-stat-lbl">средняя оценка</div></div>
+          <div class="hero-sep"></div>
+          <div><div class="hero-stat-val">+40%</div><div class="hero-stat-lbl">рост дохода тренера</div></div>
+        </div>
+      </div>
+      <!-- Mock App -->
+      <div class="hero-mockup" style="position:relative">
+        <div class="mockup">
+          <div class="mockup-bar">
+            <div class="dot" style="background:#fc5f5a"></div>
+            <div class="dot" style="background:#febc2e"></div>
+            <div class="dot" style="background:#26c940"></div>
+            <span class="mockup-url">coachflo.ru — Кабинет тренера</span>
+          </div>
+          <div class="mockup-body">
+            <div class="m-card full">
+              <div class="m-label">Мои клиенты</div>
+              <div class="m-user"><div class="m-avatar">А</div><div><div class="m-name">Анна К.</div><div class="m-sub">Активный · 7 занятий</div></div><div class="m-gain">+2 кг</div></div>
+              <div class="m-user"><div class="m-avatar">Д</div><div><div class="m-name">Дмитрий Р.</div><div class="m-sub">Активный · 8 занятий</div></div><div class="m-gain">+3 кг</div></div>
+              <div class="m-user"><div class="m-avatar">М</div><div><div class="m-name">Мария С.</div><div class="m-sub">Активный · 9 занятий</div></div><div class="m-gain">+4 кг</div></div>
+            </div>
+            <div class="m-card"><div class="m-label">Доход / месяц</div><div class="m-big">89 400 ₽</div><div class="m-trend">↑ +23% к прошлому</div></div>
+            <div class="m-card"><div class="m-label">Сегодня</div><div class="m-big">6</div><div class="m-sub" style="color:#94A3B8">тренировок запланировано</div></div>
+          </div>
+        </div>
+        <div class="mockup-badge1"><div class="bv">+23%</div><div class="bl">рост дохода</div></div>
+        <div class="mockup-badge2">💰<div><div style="font-size:12px;font-weight:700;color:#1e293b">Оплата получена</div><div style="font-size:11px;color:#94A3B8">Дмитрий Р. · 12 000 ₽</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATSBAR -->
+<section class="statsbar mesh-dark" style="position:relative">
+  <div class="grid-lines-overlay"></div>
+  <div class="accent-line-top"></div>
+  <div class="accent-line-bot"></div>
+  <div class="container" style="padding-top:0;padding-bottom:0">
+    <div style="padding:40px 0">
+      <div class="statsbar-grid">
+        <div class="stat-cell">
+          <div class="stat-val" style="color:#A78BFA;text-shadow:0 0 40px rgba(139,92,246,.5)">+40%</div>
+          <div class="stat-lbl">средний рост<br>дохода тренера</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-val" style="color:#FBBF24;text-shadow:0 0 40px rgba(251,191,36,.4)">4.9<span class="stat-suf">/ 5 ★</span></div>
+          <div class="stat-lbl">средняя оценка<br>от тренеров</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-val" style="color:#34D399;text-shadow:0 0 40px rgba(52,211,153,.4)">−7ч</div>
+          <div class="stat-lbl">экономия времени<br>в неделю</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-val" style="color:#38BDF8;text-shadow:0 0 40px rgba(56,189,248,.4)">PWA</div>
+          <div class="stat-lbl">приложение без<br>App Store</div>
+          <div class="stat-sub" style="color:#38BDF8">Установи на телефон</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE BLOCKS -->
+<section class="section-pad" style="background:#F8FAFC;position:relative;overflow:hidden">
+  <div style="position:absolute;top:0;left:0;right:0;height:80px;background:linear-gradient(to bottom,#fff,transparent);pointer-events:none"></div>
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px">
+      <div class="tag-badge" style="margin-bottom:16px">Ведущее решение для всех участников</div>
+      <h2 style="font-size:clamp(28px,4vw,48px);font-weight:900;color:#0F172A;letter-spacing:-.03em;line-height:1.08">
+        CoachFlo — для <span class="animate-gradient-text">каждого</span> в индустрии фитнеса
+      </h2>
+    </div>
+    <div class="grid-3" style="align-items:center">
+      <!-- Card 1 -->
+      <div class="aud-light">
+        <div class="aud-header-v">
+          <div class="aud-header-top">
+            <div class="aud-icon" style="background:linear-gradient(135deg,#7C3AED,#8B5CF6);box-shadow:0 4px 14px rgba(109,40,217,.3)">
+              <svg width="20" height="20" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 3c1.7 0 3 1.3 3 3s-1.3 3-3 3-3-1.3-3-3 1.3-3 3-3zm0 14.2c-2.5 0-4.7-1.3-6-3.2.1-2 4-3.1 6-3.1 2.1 0 5.9 1.1 6 3.1-1.3 1.9-3.5 3.2-6 3.2z"/></svg>
+            </div>
+            <span class="aud-tag" style="background:#ede9fe;color:#7C3AED;border:1px solid #ddd6fe">Для тренера</span>
+          </div>
+          <div class="aud-stat-row">
+            <span class="aud-stat-v-dark">+40%</span>
+            <span style="font-size:11px;color:#64748B;font-weight:600;text-transform:uppercase;letter-spacing:.07em">средний рост дохода</span>
+          </div>
+          <div class="aud-title-light">Зарабатывай больше с каждым клиентом</div>
+        </div>
+        <div class="aud-points">
+          <div class="check-li-light"><svg class="check-icon" fill="none" stroke="#7C3AED" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Увеличь количество клиентов без роста нагрузки</span></div>
+          <div class="check-li-light"><svg class="check-icon" fill="none" stroke="#7C3AED" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Сократи время на рутину в 7 раз</span></div>
+          <div class="check-li-light"><svg class="check-icon" fill="none" stroke="#7C3AED" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Повысь вовлечённость и продления</span></div>
+          <div class="check-li-light"><svg class="check-icon" fill="none" stroke="#7C3AED" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Полная прозрачность тренировочного процесса</span></div>
+        </div>
+      </div>
+      <!-- Card 2 DARK -->
+      <div class="audience-card-dark card-popular" style="margin:-24px 0">
+        <div class="aud-top-line"></div>
+        <div class="aud-badge">✦ ПОПУЛЯРНЫЙ</div>
+        <div class="aud-inner">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
+            <div class="aud-icon" style="background:rgba(139,92,246,.3);border:1px solid rgba(139,92,246,.3)">
+              <svg width="20" height="20" fill="none" stroke="#C4B5FD" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0H5m2 0v-5a2 2 0 012-2h6a2 2 0 012 2v5"/></svg>
+            </div>
+            <span style="font-size:11px;font-weight:700;color:rgba(196,181,253,.6);background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);border-radius:999px;padding:4px 12px">Для зала / студии</span>
+          </div>
+          <div class="aud-stat-row">
+            <span class="aud-stat-val" style="text-shadow:0 0 30px rgba(139,92,246,.5)">−60%</span>
+            <span class="aud-stat-lbl">операционных затрат</span>
+          </div>
+          <div class="aud-title">Управляй бизнесом, а не хаосом</div>
+          <div class="check-li"><svg class="check-icon" fill="none" stroke="#A78BFA" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Прозрачность бизнеса в режиме реального времени</span></div>
+          <div class="check-li"><svg class="check-icon" fill="none" stroke="#A78BFA" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Эффективное управление командой тренеров</span></div>
+          <div class="check-li"><svg class="check-icon" fill="none" stroke="#A78BFA" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Снижение операционных расходов</span></div>
+          <div class="check-li"><svg class="check-icon" fill="none" stroke="#A78BFA" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Единая платформа для всего зала</span></div>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="aud-light">
+        <div class="aud-header-e">
+          <div class="aud-header-top">
+            <div class="aud-icon" style="background:linear-gradient(135deg,#059669,#10B981);box-shadow:0 4px 14px rgba(5,150,105,.3)">
+              <svg width="20" height="20" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>
+            </div>
+            <span class="aud-tag" style="background:#d1fae5;color:#059669;border:1px solid #a7f3d0">Для клиента</span>
+          </div>
+          <div class="aud-stat-row">
+            <span class="aud-stat-e-dark">×2.3</span>
+            <span style="font-size:11px;color:#64748B;font-weight:600;text-transform:uppercase;letter-spacing:.07em">дольше остаются</span>
+          </div>
+          <div class="aud-title-light">Всё для результата — в одном приложении</div>
+        </div>
+        <div class="aud-points">
+          <div class="check-li-light"><svg class="check-icon" fill="none" stroke="#059669" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Единый инструмент управления тренировками</span></div>
+          <div class="check-li-light"><svg class="check-icon" fill="none" stroke="#059669" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Отслеживание результатов в реальном времени</span></div>
+          <div class="check-li-light"><svg class="check-icon" fill="none" stroke="#059669" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Дневник питания и план от тренера</span></div>
+          <div class="check-li-light"><svg class="check-icon" fill="none" stroke="#059669" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Прямая связь с тренером в любое время</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE GRID -->
+<section class="section-pad mesh-purple" style="position:relative;overflow:hidden">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px">
+      <div class="tag-badge" style="margin-bottom:16px">⚡ Все возможности платформы</div>
+      <h2 style="font-size:clamp(26px,4vw,48px);font-weight:900;color:#0F172A;letter-spacing:-.03em;line-height:1.08">Всё что нужно тренеру — <span class="animate-gradient-text">в одном месте</span></h2>
+      <p style="color:#64748B;font-size:17px;margin-top:12px">12 модулей, которые работают вместе как единая система</p>
+    </div>
+    <div class="feat-grid">
+      ${[
+        ['#7C3AED','#8B5CF6','CRM клиентов','Карточки, история, статус оплат','border-left:3px solid #ede9fe','01'],
+        ['#2563EB','#3B82F6','База упражнений','500+ с видео и описаниями','border-left:3px solid #dbeafe','02'],
+        ['#059669','#10B981','Расписание','Календарь для тренера и клиента','border-left:3px solid #d1fae5','03'],
+        ['#D97706','#F59E0B','Финансы','Учёт оплат, долгов, аналитика','border-left:3px solid #fef3c7','04'],
+        ['#DB2777','#EC4899','Напоминания','Авто-уведомления клиентам','border-left:3px solid #fce7f3','05'],
+        ['#0891B2','#06B6D4','Чат с клиентом','Встроенный мессенджер','border-left:3px solid #cffafe','06'],
+        ['#4338CA','#6366F1','Аналитика','Прогресс, доход, активность','border-left:3px solid #e0e7ff','07'],
+        ['#65A30D','#84CC16','Планы питания','Дневник и нормы по КБЖУ','border-left:3px solid #ecfccb','08'],
+        ['#0F766E','#14B8A6','Шаблоны программ','Создавай раз — используй всегда','border-left:3px solid #ccfbf1','09'],
+        ['#7C3AED','#9333EA','PWA для клиента','Приложение без App Store','border-left:3px solid #f3e8ff','10'],
+        ['#475569','#64748B','Безопасность','Шифрование и резервные копии','border-left:3px solid #f1f5f9','11'],
+        ['#D97706','#F59E0B','Быстрый старт','Настройка за 20 минут','border-left:3px solid #fef3c7','12'],
+      ].map(([c1,c2,t,d,border,n])=>`
+        <div class="feat-card" style="${border}">
+          <div class="feat-watermark">${n}</div>
+          <div class="feat-icon" style="background:linear-gradient(135deg,${c1},${c2});box-shadow:0 4px 12px ${c2}55">
+            <svg width="18" height="18" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <div class="feat-title">${t}</div>
+          <div class="feat-desc">${d}</div>
+        </div>`).join('')}
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section-pad" style="background:#F8FAFC;position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background-image:radial-gradient(at 20% 20%,hsla(265,80%,68%,.1) 0,transparent 55%),radial-gradient(at 80% 80%,hsla(220,75%,60%,.07) 0,transparent 55%);pointer-events:none"></div>
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px">
+      <div class="tag-badge" style="margin-bottom:16px">✦ Тарифы</div>
+      <h2 style="font-size:clamp(26px,4vw,48px);font-weight:900;color:#0F172A;letter-spacing:-.03em;line-height:1.08;margin-bottom:16px">Честные цены. <span class="animate-gradient-text">Начни бесплатно.</span></h2>
+      <p style="color:#64748B;font-size:16px;max-width:500px;margin:0 auto"><strong style="color:#0F172A">14 дней без карты</strong>, потом выбираешь план. <strong style="color:#8B5CF6">Скидка 30%</strong> сейчас.</p>
+    </div>
+    <div style="display:flex;justify-content:center;margin-bottom:32px">
+      <div class="pricing-toggle">
+        <button class="pt-btn active">1 месяц</button>
+        <button class="pt-btn">3 месяца <span style="color:#059669;font-weight:700"> −10%</span></button>
+        <button class="pt-btn">6 месяцев <span style="color:#059669;font-weight:700"> −15%</span></button>
+        <button class="pt-btn">12 месяцев <span style="color:#059669;font-weight:700"> −25%</span></button>
+      </div>
+    </div>
+    <div class="slider-box">
+      <div class="slider-orb"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <div>
+          <div style="font-size:17px;font-weight:700;color:#0F172A">Сколько клиентов ты ведёшь?</div>
+          <div style="font-size:13px;color:#64748B;margin-top:4px">Двигай ползунок — тариф подберётся автоматически</div>
+        </div>
+        <div style="text-align:right"><div class="slider-val">8</div><div style="font-size:12px;color:#64748B;font-weight:500">клиентов</div></div>
+      </div>
+      <input type="range" min="1" max="40" value="8">
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-name" style="color:#64748B">Старт</div>
+        <div class="price-clients-light" style="margin-bottom:16px">до 5 клиентов</div>
+        <div style="margin-bottom:20px">
+          <span class="price-val" style="color:#0F172A">390 ₽</span><span class="price-period" style="color:#94A3B8">/мес</span><br>
+          <span class="price-old" style="color:#94A3B8">557 ₽</span><span class="price-disc price-disc-light">−30%</span>
+        </div>
+        <div style="margin-bottom:20px">
+          <div class="price-feat-li"><svg width="13" height="13" fill="none" stroke="#8B5CF6" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span style="color:#64748B">До 5 активных клиентов</span></div>
+          <div class="price-feat-li"><svg width="13" height="13" fill="none" stroke="#8B5CF6" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span style="color:#64748B">Приложение для клиентов</span></div>
+          <div class="price-feat-li"><svg width="13" height="13" fill="none" stroke="#8B5CF6" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span style="color:#64748B">Библиотека упражнений</span></div>
+        </div>
+        <button class="price-btn-norm">Попробовать 14 дней</button>
+      </div>
+      <!-- POPULAR -->
+      <div class="price-card-pop card-popular" style="border-radius:20px">
+        <div style="position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,rgba(139,92,246,0),#A78BFA,rgba(139,92,246,0))"></div>
+        <div style="position:absolute;top:0;left:50%;transform:translateX(-50%)">
+          <div style="background:linear-gradient(135deg,#7C3AED,#8B5CF6);color:#fff;font-size:11px;font-weight:700;padding:6px 16px;border-radius:0 0 12px 12px;box-shadow:0 4px 16px rgba(109,40,217,.4);display:flex;align-items:center;gap:6px;white-space:nowrap">✦ Популярный</div>
+        </div>
+        <div style="padding:24px;padding-top:32px;position:relative">
+          <div style="position:absolute;top:0;right:0;width:100px;height:100px;background:rgba(139,92,246,.12);border-radius:50%;filter:blur(30px)"></div>
+          <div class="price-name" style="color:#A78BFA;letter-spacing:.08em">Базовый</div>
+          <div class="price-clients" style="margin-bottom:16px">5–10 клиентов</div>
+          <div style="margin-bottom:20px">
+            <span class="price-val" style="color:#fff;text-shadow:0 0 30px rgba(139,92,246,.4)">890 ₽</span><span class="price-period" style="color:rgba(255,255,255,.35)">/мес</span><br>
+            <span class="price-old" style="color:rgba(255,255,255,.25)">1271 ₽</span><span class="price-disc price-disc-dark">−30%</span>
+          </div>
+          <div style="margin-bottom:20px">
+            <div class="price-feat-li"><svg width="13" height="13" fill="none" stroke="#A78BFA" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span style="color:rgba(255,255,255,.6)">До 10 активных клиентов</span></div>
+            <div class="price-feat-li"><svg width="13" height="13" fill="none" stroke="#A78BFA" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span style="color:rgba(255,255,255,.6)">Всё из Старт</span></div>
+            <div class="price-feat-li"><svg width="13" height="13" fill="none" stroke="#A78BFA" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span style="color:rgba(255,255,255,.6)">Планы питания</span></div>
+            <div class="price-feat-li"><svg width="13" height="13" fill="none" stroke="#A78BFA" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span style="color:rgba(255,255,255,.6)">Календарь и расписание</span></div>
+            <div class="price-feat-li"><svg width="13" height="13" fill="none" stroke="#A78BFA" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span style="color:rgba(255,255,255,.6)">Чат с клиентом</span></div>
+          </div>
+          <button class="price-btn-pop">Попробовать 14 дней</button>
+        </div>
+      </div>
+      <div class="price-card">
+        <div class="price-name" style="color:#64748B">Про</div>
+        <div class="price-clients-light" style="margin-bottom:16px">10–25 клиентов</div>
+        <div style="margin-bottom:20px">
+          <span class="price-val" style="color:#0F172A">1490 ₽</span><span class="price-period" style="color:#94A3B8">/мес</span><br>
+          <span class="price-old" style="color:#94A3B8">2129 ₽</span><span class="price-disc price-disc-light">−30%</span>
+        </div>
+        <div style="margin-bottom:20px">
+          <div class="price-feat-li"><svg width="13" height="13" fill="none" stroke="#8B5CF6" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span style="color:#64748B">До 25 активных клиентов</span></div>
+          <div class="price-feat-li"><svg width="13" height="13" fill="none" stroke="#8B5CF6" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span style="color:#64748B">Детальная аналитика</span></div>
+          <div class="price-feat-li"><svg width="13" height="13" fill="none" stroke="#8B5CF6" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span style="color:#64748B">API-интеграции</span></div>
+        </div>
+        <button class="price-btn-norm">Попробовать 14 дней</button>
+      </div>
+      <div class="price-card">
+        <div class="price-name" style="color:#64748B">Бизнес</div>
+        <div class="price-clients-light" style="margin-bottom:16px">от 25 клиентов</div>
+        <div style="margin-bottom:20px">
+          <span class="price-val" style="color:#0F172A">2100 ₽</span><span class="price-period" style="color:#94A3B8">/мес</span><br>
+          <span class="price-old" style="color:#94A3B8">3000 ₽</span><span class="price-disc price-disc-light">−30%</span>
+        </div>
+        <div style="margin-bottom:20px">
+          <div class="price-feat-li"><svg width="13" height="13" fill="none" stroke="#8B5CF6" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span style="color:#64748B">Без ограничений</span></div>
+          <div class="price-feat-li"><svg width="13" height="13" fill="none" stroke="#8B5CF6" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span style="color:#64748B">White Label</span></div>
+          <div class="price-feat-li"><svg width="13" height="13" fill="none" stroke="#8B5CF6" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span style="color:#64748B">SLA поддержка</span></div>
+        </div>
+        <button class="price-btn-norm">Попробовать 14 дней</button>
+      </div>
+    </div>
+    <p style="text-align:center;color:#94A3B8;font-size:13px;margin-top:28px;font-weight:500">Карта не нужна · Отмена в любой момент · Скидка навсегда для тех кто подключается сейчас</p>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-section mesh-dark" style="position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;pointer-events:none;opacity:.03;background-image:linear-gradient(rgba(139,92,246,1) 1px,transparent 1px),linear-gradient(90deg,rgba(139,92,246,1) 1px,transparent 1px);background-size:50px 50px"></div>
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(139,92,246,.5),transparent)"></div>
+  <div class="container" style="padding-top:80px;padding-bottom:80px">
+    <div class="cta-testimonials">
+      <div class="test-card glass-dark" style="box-shadow:0 4px 40px rgba(139,92,246,.18)">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-text">"За первый месяц вернул двух клиентов которых уже считал потерянными. CoachFlo напоминает сам — я просто работаю."</p>
+        <div class="test-bottom"><div style="display:flex;align-items:center;gap:10px"><div class="test-avatar" style="background:rgba(139,92,246,.25);color:#A78BFA">АМ</div><div><div class="test-name">Алексей М.</div><div class="test-city">Москва</div></div></div><div style="font-size:14px;font-weight:900;color:#A78BFA">+38 000 ₽/мес</div></div>
+      </div>
+      <div class="test-card glass-dark" style="box-shadow:0 4px 40px rgba(16,185,129,.14)">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-text">"Раньше таблицы, WhatsApp, голова в хаосе. Теперь всё в одном — и клиенты видят свой прогресс, не уходят."</p>
+        <div class="test-bottom"><div style="display:flex;align-items:center;gap:10px"><div class="test-avatar" style="background:rgba(16,185,129,.2);color:#34D399">МК</div><div><div class="test-name">Марина К.</div><div class="test-city">Санкт-Петербург</div></div></div><div style="font-size:14px;font-weight:900;color:#34D399">+22 000 ₽/мес</div></div>
+      </div>
+      <div class="test-card glass-dark" style="box-shadow:0 4px 40px rgba(59,130,246,.14)">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-text">"Продления выросли с 40% до 78% за 3 месяца. Клиенты сами хотят продолжать когда видят динамику."</p>
+        <div class="test-bottom"><div style="display:flex;align-items:center;gap:10px"><div class="test-avatar" style="background:rgba(59,130,246,.2);color:#60A5FA">ДС</div><div><div class="test-name">Дмитрий С.</div><div class="test-city">Екатеринбург</div></div></div><div style="font-size:14px;font-weight:900;color:#60A5FA">+51 000 ₽/мес</div></div>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <div class="tag-badge-dark" style="margin-bottom:24px">
+        <span class="pulse-dot" style="width:7px;height:7px;background:#A78BFA;border-radius:50%;flex-shrink:0"></span>
+        Начни зарабатывать больше сегодня
+      </div>
+      <div class="cta-title">Раскрой потенциал<br>с <span class="animate-gradient-text">CoachFlo</span></div>
+      <p class="cta-sub">Управляй, масштабируй, зарабатывай. <strong style="color:rgba(255,255,255,.8)">Платформа №1</strong> для персональных тренеров России. <span style="color:#A78BFA;font-weight:600">Окупается за первый месяц — гарантируем.</span></p>
+      <button class="cta-btn">Попробовать бесплатно 14 дней →</button>
+      <div class="cta-guarantees">
+        <div class="cta-g"><span class="cta-g-icon">🛡</span> 14 дней бесплатно — карта не нужна</div>
+        <div class="cta-g"><span class="cta-g-icon">⚡</span> Настройка за 20 минут</div>
+        <div class="cta-g"><span class="cta-g-icon">📈</span> Первые результаты в первый месяц</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="mesh-slate" style="border-top:1px solid rgba(139,92,246,.15)">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo"><span style="color:#fff">coach</span><span class="logo-gradient">flo</span></div>
+        <p class="footer-desc">Платформа «Всё в одном» для персональных тренеров. Управляй клиентами, программами, финансами в одном месте.</p>
+        <div class="footer-pwa"><div class="footer-pwa-dot"></div>Доступно как PWA на телефон</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Продукт</div>
+        <a class="footer-link" href="#">Модули тренера</a>
+        <a class="footer-link" href="#">Блок клиента</a>
+        <a class="footer-link" href="#">Тарифы</a>
+        <a class="footer-link" href="#">Отзывы</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Компания</div>
+        <a class="footer-link" href="#">Конфиденциальность</a>
+        <a class="footer-link" href="#">Публичная оферта</a>
+        <a class="footer-link" href="#">Поддержка в Telegram</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 CoachFlo · Платформа для онлайн-тренеров</span>
+      <span class="footer-copy">ИП Иванов И.И. · ИНН 000000000000</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

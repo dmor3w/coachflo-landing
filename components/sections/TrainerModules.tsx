@@ -19,7 +19,7 @@ const modules = [
     accentBorder: 'border-purple-100',
     accentIcon: 'bg-purple-100 text-purple-600',
     accentText: 'text-purple-600',
-    image: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&q=75&auto=format&fit=crop',
+    image: '/images/modules/clients.jpg',
   },
   {
     icon: Dumbbell,
@@ -35,7 +35,7 @@ const modules = [
     accentBorder: 'border-blue-100',
     accentIcon: 'bg-blue-100 text-blue-600',
     accentText: 'text-blue-600',
-    image: 'https://images.unsplash.com/photo-1590556409324-aa1d726e5c3c?w=600&q=75&auto=format&fit=crop',
+    image: '/images/modules/workouts.jpg',
   },
   {
     icon: Calendar,
@@ -51,7 +51,7 @@ const modules = [
     accentBorder: 'border-emerald-100',
     accentIcon: 'bg-emerald-100 text-emerald-600',
     accentText: 'text-emerald-600',
-    image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=75&auto=format&fit=crop',
+    image: '/images/modules/nutrition.jpg',
   },
   {
     icon: CreditCard,
@@ -67,7 +67,7 @@ const modules = [
     accentBorder: 'border-orange-100',
     accentIcon: 'bg-orange-100 text-orange-600',
     accentText: 'text-orange-600',
-    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=75&auto=format&fit=crop',
+    image: '/images/modules/finance.jpg',
   },
 ]
 
@@ -106,7 +106,6 @@ export default function TrainerModules() {
                     src={mod.image}
                     alt={mod.title}
                     fill
-                    unoptimized
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />

@@ -2,43 +2,20 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { ArrowRight } from 'lucide-react'
 
 interface HeroProps {
   onTrial: (email?: string) => void
 }
 
-const avatars = [
-  'https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=80&q=80&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1548690312-e3b507d8c110?w=80&q=80&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=80&q=80&auto=format&fit=crop',
-]
-
 const bgPhotos = [
-  {
-    src: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=85&auto=format&fit=crop',
-    alt: 'Спортивный зал',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1920&q=85&auto=format&fit=crop',
-    alt: 'Персональная тренировка',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1517343985841-f1b3b8e78e5b?w=1920&q=85&auto=format&fit=crop',
-    alt: 'Силовая тренировка',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=1920&q=85&auto=format&fit=crop',
-    alt: 'Бег и кардио',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=1920&q=85&auto=format&fit=crop',
-    alt: 'Атлет в зале',
-  },
+  { src: '/images/hero/gym.jpg', alt: 'Спортивный зал' },
+  { src: '/images/hero/personal-training.jpg', alt: 'Персональная тренировка' },
+  { src: '/images/hero/strength.jpg', alt: 'Силовая тренировка' },
+  { src: '/images/hero/cardio.jpg', alt: 'Бег и кардио' },
+  { src: '/images/hero/athlete.jpg', alt: 'Атлет в зале' },
 ]
 
 export default function Hero({ onTrial }: HeroProps) {
-  const [email, setEmail] = useState('')
   const [current, setCurrent] = useState(0)
 
   useEffect(() => {
@@ -47,10 +24,6 @@ export default function Hero({ onTrial }: HeroProps) {
     }, 8000)
     return () => clearInterval(timer)
   }, [])
-
-  const handleStart = () => {
-    onTrial(email)
-  }
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
@@ -70,7 +43,6 @@ export default function Hero({ onTrial }: HeroProps) {
             src={photo.src}
             alt={photo.alt}
             fill
-            unoptimized
             priority={i === 0}
             className="object-cover object-center"
             sizes="100vw"
@@ -110,28 +82,11 @@ export default function Hero({ onTrial }: HeroProps) {
           </h1>
 
           <p className="text-white/70 text-lg leading-relaxed mb-8 max-w-xl">
-            CoachFlo — платформа для тренеров, которые хотят{' '}
+            Coach Flo — платформа для тренеров, которые хотят{' '}
             <span className="text-white font-semibold">масштабировать бизнес</span>,
             не утопая в таблицах и переписках.{' '}
             <span className="text-accent-light font-semibold">Первые результаты — уже в первый месяц.</span>
           </p>
-
-          {/* CTA row */}
-          <div className="flex flex-col sm:flex-row gap-3 mb-4">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Введите ваш email"
-              className="flex-1 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-5 py-3.5 text-white placeholder:text-white/50 focus:outline-none focus:border-accent transition-colors text-sm"
-            />
-            <button
-              onClick={handleStart}
-              className="flex items-center justify-center gap-2 bg-accent hover:bg-accent-dark text-white font-semibold rounded-xl px-6 py-3.5 transition-all whitespace-nowrap text-sm shadow-lg shadow-accent/30"
-            >
-              Начать бесплатно <ArrowRight size={16} />
-            </button>
-          </div>
 
           <div className="flex flex-wrap items-center gap-4 text-xs text-white/60">
             <span className="text-emerald-400 font-semibold">✓ Карта не нужна</span>
@@ -139,34 +94,6 @@ export default function Hero({ onTrial }: HeroProps) {
             <span>✓ Отмена в любой момент</span>
           </div>
 
-          {/* Stats */}
-          <div className="flex items-center gap-6 mt-10 pt-8 border-t border-white/20">
-            <div>
-              <div className="flex items-center mb-1">
-                {avatars.map((src, i) => (
-                  <div
-                    key={src}
-                    className="relative w-8 h-8 rounded-full border-2 border-white/30 overflow-hidden"
-                    style={{ marginLeft: i === 0 ? 0 : '-8px', zIndex: avatars.length - i }}
-                  >
-                    <Image src={src} alt="тренер" fill unoptimized className="object-cover" sizes="32px" />
-                  </div>
-                ))}
-              </div>
-              <div className="text-2xl font-bold text-white">10 000+</div>
-              <div className="text-xs text-white/60 mt-0.5">тренеров доверяют CoachFlo</div>
-            </div>
-            <div className="w-px h-10 bg-white/20" />
-            <div>
-              <div className="text-2xl font-bold text-white">4.9 ★</div>
-              <div className="text-xs text-white/60 mt-0.5">средняя оценка</div>
-            </div>
-            <div className="w-px h-10 bg-white/20" />
-            <div>
-              <div className="text-2xl font-bold text-white">+40%</div>
-              <div className="text-xs text-white/60 mt-0.5">рост дохода тренера</div>
-            </div>
-          </div>
         </div>
 
         {/* Right: Mock app */}
@@ -177,7 +104,7 @@ export default function Hero({ onTrial }: HeroProps) {
                 <div className="w-3 h-3 rounded-full bg-red-400" />
                 <div className="w-3 h-3 rounded-full bg-yellow-400" />
                 <div className="w-3 h-3 rounded-full bg-green-400" />
-                <span className="ml-2 text-xs text-gray-400">coachflo.ru — Кабинет тренера</span>
+                <span className="ml-2 text-xs text-gray-400">Coach Flo — Кабинет тренера</span>
               </div>
               <div className="p-6 grid grid-cols-2 gap-4">
                 <div className="col-span-2 bg-gray-50 rounded-xl p-4 border border-gray-200">
