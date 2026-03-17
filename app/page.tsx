@@ -61,10 +61,6 @@ export default function Home() {
               <p className="text-white/50 text-sm leading-relaxed max-w-xs">
                 Платформа «Всё в одном» для персональных тренеров. Управляй клиентами, программами, финансами в одном месте.
               </p>
-              <div className="flex items-center gap-2 mt-4">
-                <span className="w-2 h-2 bg-emerald-400 rounded-full" />
-                <span className="text-white/40 text-xs">2 000+ тренеров уже внутри</span>
-              </div>
             </div>
             {/* Product */}
             <div>
@@ -111,7 +107,7 @@ export default function Home() {
           </div>
           <div className="border-t pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
             <p className="text-white/30 text-xs">© 2026 Coach Flo · Платформа для онлайн-тренеров</p>
-            <p className="text-white/20 text-xs">ИП Иванов И.И. · ИНН 000000000000</p>
+            <p className="text-white/20 text-xs">ООО «Аполло-Тех» · ИНН 7203602451</p>
           </div>
         </div>
       </footer>
