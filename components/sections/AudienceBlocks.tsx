@@ -1,6 +1,6 @@
 'use client'
 
-import { Dumbbell, Building2, User, CheckCircle, ArrowRight } from 'lucide-react'
+import { Dumbbell, Building2, User, CheckCircle } from 'lucide-react'
 import DecorativeBg from '@/components/ui/DecorativeBg'
 
 const audiences = [
@@ -14,7 +14,6 @@ const audiences = [
     border: 'border-violet-100',
     gradientFrom: 'from-violet-50',
     checkColor: 'text-violet-500',
-    stat: { value: '+40%', label: 'средний рост дохода' },
     points: [
       'Увеличь количество клиентов без роста нагрузки',
       'Сократи время на рутину в 7 раз',
@@ -32,7 +31,6 @@ const audiences = [
     border: 'border-blue-100',
     gradientFrom: 'from-blue-50',
     checkColor: 'text-blue-500',
-    stat: { value: '−60%', label: 'операционных затрат' },
     points: [
       'Прозрачность бизнеса в режиме реального времени',
       'Эффективное управление командой тренеров',
@@ -50,7 +48,6 @@ const audiences = [
     border: 'border-emerald-100',
     gradientFrom: 'from-emerald-50',
     checkColor: 'text-emerald-500',
-    stat: { value: '×2.3', label: 'дольше остаются' },
     points: [
       'Единый инструмент управления тренировками',
       'Отслеживание результатов в реальном времени',
@@ -93,12 +90,7 @@ export default function AudienceBlocks() {
                       {a.tag}
                     </span>
                   </div>
-                  {/* Stat */}
-                  <div className="flex items-baseline gap-2 mb-3">
-                    <span className={`text-3xl font-black ${a.color.replace('bg-', 'text-')}`}>{a.stat.value}</span>
-                    <span className="text-t-secondary text-xs font-semibold uppercase tracking-wide">{a.stat.label}</span>
-                  </div>
-                  <h3 className="text-base font-bold text-t-primary leading-snug">{a.title}</h3>
+                  <h3 className="text-xl font-bold text-t-primary leading-snug mt-2">{a.title}</h3>
                 </div>
 
                 {/* Points */}

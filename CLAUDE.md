@@ -23,9 +23,13 @@ Next.js 15 App Router landing page for CoachFlo — a SaaS platform for online f
 - `components/sections/` — landing page sections rendered in order: `Hero`, `StatsBar`, `AudienceBlocks`, `TrainerModules`, `FeatureGrid`, `ClientSlider`, `InfiniteCarousel`, `Quiz`, `Pricing`, `FinalCTA`
 - `components/ui/` — `Modal` (overlay wrapper), `LeadForm` (react-hook-form + zod validation, `mode: 'trial' | 'demo'`), `DecorativeBg`
 
-**LeadForm** currently logs to console on submit — no real backend integration exists yet.
+**LeadForm** submits to `POST /api/lead` (`app/api/lead/route.ts`), which sends an email via nodemailer using SMTP env vars: `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_TO`.
+
+**Additional pages:** `app/privacy/page.tsx` and `app/terms/page.tsx` (static legal pages). `app/error.tsx` is a global error boundary.
 
 **Footer** is inline in `app/page.tsx`, not extracted into a component.
+
+**`components/ui/SectionDivider`** — thin decorative divider used between sections.
 
 ## Key Dependencies
 
