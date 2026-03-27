@@ -24,14 +24,23 @@ export default function TermsPage() {
       {/* Content */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-3xl sm:text-4xl font-bold text-t-primary mb-2">Публичная оферта</h1>
-        <p className="text-t-secondary text-sm mb-10">Последнее обновление: 24 февраля 2026 г.</p>
+        <p className="text-t-secondary text-sm mb-6">Последнее обновление: 24 февраля 2026 г.</p>
+        <a
+          href="/user-agreement.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 mb-10 px-4 py-2 rounded-lg border border-accent text-accent hover:bg-accent hover:text-white transition-colors text-sm font-medium"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Открыть документ (PDF)
+        </a>
 
         <div className="prose prose-slate max-w-none space-y-8 text-t-primary/90 text-[15px] leading-relaxed">
           <section>
             <h2 className="text-xl font-semibold text-t-primary mb-3">1. Общие положения</h2>
             <p>
               Настоящий документ является официальной публичной офертой (далее — «Оферта») и определяет условия
-              использования платформы Coach Flo (далее — «Сервис»), предоставляемой ИП Иванов И.И. (ИНН 000000000000),
+              использования платформы Coach Flo (далее — «Сервис»), предоставляемой ООО «Аполло-Тех» (ИНН 7203602451),
               далее — «Исполнитель».
             </p>
             <p className="mt-3">
